@@ -1,0 +1,31 @@
+#!/bin/bash
+
+echo "Updating the COVID-19 Daily information git repo"
+cd /home/ubuntu/covpro/data/COVID-19
+/usr/bin/git fetch origin 
+/usr/bin/git pull origin master
+cd /home/ubuntu/covpro/code/
+
+echo "Data Updated, ready to run covpro3.py"
+
+/home/ubuntu/anaconda3/bin/python /home/ubuntu/covpro/code/covpro3.py
+
+echo "refresh program complete"
+
+/home/ubuntu/anaconda3/bin/python /home/ubuntu/covpro/code/national_update.py
+
+echo "National Update run successful"
+
+/home/ubuntu/anaconda3/bin/python /home/ubuntu/covpro/code/Vonnegut.py
+echo "Vonnegut run successful"
+#date=$(date '+%Y-%m-%d')
+#/usr/bin/aws s3 cp /home/ubuntu/covpro/timeseries/live/$date.csv s3://covid-v1-part-3-data-bucket/timeseries/live/$date/data.csv
+
+
+
+/usr/bin/aws s3 cp /home/ubuntu/covpro/data/COVID-19/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_US.csv s3://covid-v1-part-3-data-bucket/timeseries/data/time_series_covid19_deaths_US.csv
+
+/usr/bin/aws s3 cp /home/ubuntu/covpro/data/COVID-19/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_US.csv s3://covid-v1-part-3-data-bucket/timeseries/data/time_series_covid19_confirmed_US.csv
+
+
+###/home/ubuntu/covpro/code/push_ts_to_s3

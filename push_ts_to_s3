@@ -1,0 +1,7 @@
+#!/bin/bash
+
+for filename in /home/ubuntu/covpro/data/daily/*; do
+    aws s3 cp "$filename" s3://covid-v1-part-3-data-bucket/timeseries/data/daily/"$filename"
+done
+
+echo Moved all files in folder to s3 bucket
